@@ -26,9 +26,18 @@ class _ColetandoState extends State<Coletando> {
                 icon: Icon(Icons.arrow_back, size: 35, color: Colors.white),
               ),
 
-              SizedBox(width: 27),
+              SizedBox(width: 30),
 
-              Text("Plantação 2024", style: TextStyle(color: Colors.white, fontSize: 30)),
+              Text("Coleta de solo", style: TextStyle(color: Colors.white, fontSize: 30)),
+
+              SizedBox(width: 40),
+
+              IconButton(
+                onPressed: () {
+
+                },
+                icon: Icon(Icons.photo_camera, size: 35, color: Colors.white),
+              ),
             ],
           ),
         ),
@@ -41,9 +50,9 @@ class _ColetandoState extends State<Coletando> {
         child: Column(
           children: [
 
-            Center(///////////ATIVIDADE
+            Center(///////////Experimento
               child: Text(
-                'Texte de solo',
+                'Tratamento ABC',
                 style: TextStyle(fontSize: 25),
               ),
             ),
@@ -157,7 +166,7 @@ class _ColetandoState extends State<Coletando> {
                 Expanded(
                   child: Center(
                     child: Text(
-                      "Grupo 1",
+                      "Parcela 1",
                       style: TextStyle(fontSize: 30),
                     ),
                   ),

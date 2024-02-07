@@ -1,13 +1,15 @@
+import 'package:field_teste/paginas/Coletando.dart';
 import 'package:flutter/material.dart';
 import 'Recados.dart';
-class Grupos extends StatefulWidget {
-  const Grupos({super.key});
+
+class Projetos extends StatefulWidget {
+  const Projetos({super.key});
 
   @override
-  State<Grupos> createState() => _GruposState();
+  State<Projetos> createState() => _ProjetosState();
 }
 
-class _GruposState extends State<Grupos> {
+class _ProjetosState extends State<Projetos> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,11 +26,11 @@ class _GruposState extends State<Grupos> {
                 icon: Icon(Icons.arrow_back, size: 35, color: Colors.white),
               ),
 
-              SizedBox(width: 32),
+              SizedBox(width: 75),
 
-              Text("Agrupamentos", style: TextStyle(color: Colors.white, fontSize: 30)),
+              Text("Projetos", style: TextStyle(color: Colors.white, fontSize: 30)),
 
-              SizedBox(width: 32),
+              SizedBox(width: 75),
 
               IconButton(
                 onPressed: () {
@@ -45,7 +47,14 @@ class _GruposState extends State<Grupos> {
           SingleChildScrollView(
             child: Column(
               children: [
-                Container(
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Coletando()),
+                    );
+                  },
+                  child: Container(
                   margin: EdgeInsets.only(top: 20, bottom: 10, right: 10, left: 10),
                   width: double.infinity,
                   padding: EdgeInsets.all(8.0),
@@ -61,7 +70,7 @@ class _GruposState extends State<Grupos> {
                     children: [
                       Center( //////////////PROJETO
                         child: Text(
-                          "Grupo 1",
+                          "Plantação 2024 / A20",
                           style: TextStyle(color: Colors.black, fontSize: 30),
                         ),
                       ),
@@ -75,10 +84,10 @@ class _GruposState extends State<Grupos> {
 
                       SizedBox(height: 8),
 
-                      Align(/////////////////LOCAL
+                      Align(/////////////PESQUISADOR
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "Local: fazenda1",
+                          "Pesq. Responsável: XXXXXXX",
                           style: TextStyle(color: Colors.black, fontSize: 15),
                         ),
                       ),
@@ -86,12 +95,21 @@ class _GruposState extends State<Grupos> {
                       Align(////////////CIDADE
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "Quantidade: 5",
+                          "Município: cidade1",
+                          style: TextStyle(color: Colors.black, fontSize: 15),
+                        ),
+                      ),
+
+                      Align(/////////////////LOCAL
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Local: fazenda1",
                           style: TextStyle(color: Colors.black, fontSize: 15),
                         ),
                       ),
                     ],
                   ),
+                ),
                 ),
               ],
             ),

@@ -1,4 +1,4 @@
-import 'package:field_teste/paginas/Atividades.dart';
+import 'package:field_teste/paginas/Projetos.dart';
 import 'package:flutter/material.dart';
 
 class HomeP extends StatefulWidget {
@@ -50,13 +50,13 @@ class _HomePState extends State<HomeP> {
             ),
           ),
 
-          SizedBox(height: 25),
+          SizedBox(height: 50),
 
           GestureDetector(
           onTap: () {
           Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Atividades()),
+          MaterialPageRoute(builder: (context) => Projetos()),
           );
           },
           child: Container( ///////////////COLETA DE DADOS

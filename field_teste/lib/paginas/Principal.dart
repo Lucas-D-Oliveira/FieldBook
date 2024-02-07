@@ -1,5 +1,5 @@
-
 import 'package:field_teste/paginas/HomeP.dart';
+import 'package:field_teste/paginas/Perfil.dart';
 import 'package:field_teste/paginas/Recados.dart';
 import 'package:flutter/material.dart';
 
@@ -19,21 +19,30 @@ class _PrincipalState extends State<Principal> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: Text("Bem Vindo Lucas",
-            style: TextStyle(color: Colors.white)
+        title: Text(
+          "Bem Vindo Lucas",
+          style: TextStyle(color: Colors.white),
         ),
         flexibleSpace: Container(
-          padding: EdgeInsets.only(bottom: 8,top: 20,right: 15),
+          padding: EdgeInsets.only(bottom: 8, top: 20, right: 15),
           alignment: Alignment.bottomRight,
-          child: Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: Center(
-                child: Image.asset("imagens/perfil.png")
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Perfil()),
+              );
+            },
+            child: Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: Image.asset("imagens/perfil.png"),
+              ),
             ),
           ),
         ),
@@ -61,7 +70,6 @@ class _PrincipalState extends State<Principal> {
             icon: Icon(Icons.home),
             label: ("Inicio"),
           ),
-
           BottomNavigationBarItem(
             icon: Icon(Icons.mail),
             label: ("Recados"),
