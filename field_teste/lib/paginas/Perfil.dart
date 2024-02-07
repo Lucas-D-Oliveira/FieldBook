@@ -12,6 +12,7 @@ class _PerfilState extends State<Perfil> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.green,
         flexibleSpace: Container(
           padding: EdgeInsets.only(bottom: 0, top: 30, right: 13, left: 13),
