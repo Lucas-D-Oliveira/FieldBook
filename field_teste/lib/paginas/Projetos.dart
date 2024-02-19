@@ -1,9 +1,41 @@
 import 'package:field_teste/paginas/Coletando.dart';
 import 'package:flutter/material.dart';
 import 'Recados.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:field_teste/paginas/Coletando.dart';
+
+
+class Projeto {
+  final String nome;
+  final String atividade;
+  final String pesquisador;
+  final String cidade;
+  final String local;
+
+  Projeto({
+    required this.nome,
+    required this.atividade,
+    required this.pesquisador,
+    required this.cidade,
+    required this.local,
+  });
+
+  //
+  factory Projeto.fromFirestore(DocumentSnapshot doc) {
+    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+    return Projeto(
+      nome: data['nomeP'] ?? '',
+      atividade: data['atividade'] ?? '',
+      pesquisador: data['pesquisador'] ?? '',
+      cidade: data['cidade'] ?? '',
+      local: data['local'] ?? '',
+    );
+  }
+}
 
 class Projetos extends StatefulWidget {
-  const Projetos({super.key});
+  const Projetos({Key? key}) : super(key: key);
 
   @override
   State<Projetos> createState() => _ProjetosState();
@@ -26,13 +58,9 @@ class _ProjetosState extends State<Projetos> {
                 },
                 icon: Icon(Icons.arrow_back, size: 35, color: Colors.white),
               ),
-
               SizedBox(width: 75),
-
               Text("Projetos", style: TextStyle(color: Colors.white, fontSize: 30)),
-
               SizedBox(width: 75),
-
               IconButton(
                 onPressed: () {
                   DialogUtils.mostrarTextFieldDialog(context);
@@ -43,19 +71,24 @@ class _ProjetosState extends State<Projetos> {
           ),
         ),
       ),
-      body: ListView(
-        children: [
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Coletando()),
-                    );
-                  },
-                  child: Container(
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('Projetos').snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return CircularProgressIndicator();
+          }
+          List<Projeto> projetos = snapshot.data!.docs.map((doc) => Projeto.fromFirestore(doc)).toList();
+          return ListView.builder(
+            itemCount: projetos.length,
+            itemBuilder: (BuildContext context, int index) {
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Coletando()),
+                  );
+                },
+                child: Container(
                   margin: EdgeInsets.only(top: 20, bottom: 10, right: 10, left: 10),
                   width: double.infinity,
                   padding: EdgeInsets.all(8.0),
@@ -69,53 +102,47 @@ class _ProjetosState extends State<Projetos> {
                   ),
                   child: Column(
                     children: [
-                      Center( //////////////PROJETO
+                      Center(
                         child: Text(
-                          "Plantação 2024 / A20",
+                          projetos[index].nome,
                           style: TextStyle(color: Colors.black, fontSize: 30),
                         ),
                       ),
-
-                      Center( //////////////ATIVIDADE
+                      Center(
                         child: Text(
-                          "Coleta de solo / A20-E21",
+                          projetos[index].atividade,
                           style: TextStyle(color: Colors.black, fontSize: 20),
                         ),
                       ),
-
                       SizedBox(height: 8),
-
-                      Align(/////////////PESQUISADOR
+                      Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "Pesq. Responsável: XXXXXXX",
+                          "Pesq. Responsável: ${projetos[index].pesquisador}",
                           style: TextStyle(color: Colors.black, fontSize: 15),
                         ),
                       ),
-
-                      Align(////////////CIDADE
+                      Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "Município: cidade1",
+                          "Município: ${projetos[index].cidade}",
                           style: TextStyle(color: Colors.black, fontSize: 15),
                         ),
                       ),
-
-                      Align(/////////////////LOCAL
+                      Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "Local: fazenda1",
+                          "Local: ${projetos[index].local}",
                           style: TextStyle(color: Colors.black, fontSize: 15),
                         ),
                       ),
                     ],
                   ),
                 ),
-                ),
-              ],
-            ),
-          ),
-        ],
+              );
+            },
+          );
+        },
       ),
     );
   }
